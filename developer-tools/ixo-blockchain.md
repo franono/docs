@@ -162,7 +162,7 @@ All validators should perform the following GENTX steps (skip to Step 4 if netwo
 1. Ensure you have the final genesis.json with all the starting account balances:
 
 ```
-git clone https://gitlab.com/ixofoundation/genesis.git
+git clone https://github.com/ixofoundation/genesis.git
 cd genesis/impacthub-1
 ```
 
