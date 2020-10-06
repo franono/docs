@@ -34,48 +34,60 @@ sudo chmod +x /usr/local/bin/docker-compose
 #### Set up IXO-cellnode: 
 
 ```text
+cd $HOME
 git clone https://github.com/ixofoundation/ixo-cellnode.git # or clone your own fork
 cd ixo-cellnode/
 
 
 ```
 
-Update the following variables in docker-compose.yml
+Update the following variables in docker-compose.prod.yml
+
 ```
 BLOCKCHAIN_URI_REST=http://<blocksync IP>/api/did/getByDid/
 BLOCKSYNC_URI_REST==http://<blocksync IP>/api/
+BLOCKCHAIN_REST==http://<REST server IP>:1317
+NODEDID=<DID of Relayer>
+```
+
+
+Update the following variables in bin/start.sh, which will be the credentials cellnode uses with RabbitMQ, Mongo and encryption keys for Cellnode's wallet:
+```
+export DB_USER="relayer"
+export DB_PASSWORD="<new mongodb password>"
+export MQ_USER="relayer"
+export MQ_PASSWORD="<new RabbbitMQ password>"
+export ASYMCYPHER="<add a random string here for Wallet encryption>"
+export ASYMKEY="<add a random string here for Wallet encryption>"
 ```
 
 Run the Docker containers
 ```text
-cd bin
-./start.sh
+./bin/start.sh
 ```
 
-Change credentials of Mongo. Any changes must be reflected in the docker-compose.yml file.
+At this points all Docker containers will turn on, however with ixo-pol restarting due to DB authentication issues. This is fixed by creating the relayer user in the database as shown below.
 
-Access the docker container:
+Access the DB docker container:
 ```text
 docker exec -ti db /bin/bash
 ```
 
-Update the user credentials.
+Create the admin user:
 ```
-mongod
-
+mongo
 use admin
-
 db.createUser({user: "<admin username>", pwd: "<admin password>", roles: [ { role: "userAdminAnyDatabase", db: "admin" } ]})
-
 db.auth("<admin username>", "<admin password>" )
-
+```
+Exit the mongo shell and re-enter as admin. Enter the elysian db and create the new relayer username with the username and password you defined in DB_USER and DB_PASSWORD above.
+```
 exit
-
 mongo --port 27017 -u "<admin username>" -p "<admin password>" --authenticationDatabase "admin"
-
 use elysian
-
 db.createUser({user: "<username>", pwd: "<password>", roles: [{role: "readWrite", db: "elysian"}]})
 ```
+
+Once this is done you may exit the container by typing `exit` twice.
 
 
