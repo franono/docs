@@ -14,7 +14,7 @@ ixo-blocksync syncs all the public info from the ixo blockchain to mongodb
 * Static IP address
 
 
-#### Install dependencies as root user: 
+### Install dependencies as root user: 
 
 
 ```text
@@ -31,7 +31,7 @@ sudo curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-#### Set up IXO-cellnode: 
+### Set up IXO-cellnode: 
 
 ```text
 cd $HOME
@@ -44,10 +44,6 @@ cd ixo-cellnode/
 Update the following variables in docker-compose.prod.yml
 
 ```
-BLOCKCHAIN_URI_REST=http://<blocksync IP>/api/did/getByDid/
-BLOCKSYNC_URI_REST==http://<blocksync IP>/api/
-BLOCKCHAIN_REST==http://<REST server IP>:1317
-NODEDID=<DID of Relayer>
 ```
 
 
@@ -59,6 +55,11 @@ export MQ_USER="relayer"
 export MQ_PASSWORD="<new RabbbitMQ password>"
 export ASYMCYPHER="<add a random string here for Wallet encryption>"
 export ASYMKEY="<add a random string here for Wallet encryption>"
+
+export BLOCKCHAIN_URI_REST=http://<blocksync IP>/api/did/getByDid/
+export BLOCKSYNC_URI_REST=http://<blocksync IP>/api/
+export BLOCKCHAIN_REST=http://<REST server IP>:1317
+export NODEDID=<DID of Relayer>
 ```
 
 Run the Docker containers
