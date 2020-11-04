@@ -34,7 +34,6 @@ curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
 #### Set up IXO-webclient: 
 
 ```text
-
 git clone https://github.com/ixofoundation/ixo-webclient.git # or clone your own fork
 cd ixo-webclient/
 docker build . -t ixo-webclient
