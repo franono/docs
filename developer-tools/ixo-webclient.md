@@ -52,4 +52,4 @@ cd bin
 ./start.sh
 ```
 
-Change credentials of Mongo. Any changes must be reflected in the docker-compose.yml file.
+If further changes are done to Mongo's credentialsm these must be reflected in the docker-compose.yml file.
