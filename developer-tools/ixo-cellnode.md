@@ -38,12 +38,6 @@ cd $HOME
 git clone https://github.com/ixofoundation/ixo-cellnode.git # or clone your own fork
 cd ixo-cellnode/
 
-
-```
-
-Update the following variables in docker-compose.prod.yml
-
-```
 ```
 
 
